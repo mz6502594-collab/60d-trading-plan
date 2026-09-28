@@ -1,1 +1,10 @@
-{"name":"60D Trading Plan","short_name":"60D Plan","start_url":"./index.html","display":"standalone","background_color":"#080b12","theme_color":"#080b12","icons":[]}
+{
+  "name": "60D Trading Plan",
+  "short_name": "60D Plan",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#070a10",
+  "theme_color": "#0a0e17",
+  "orientation": "portrait",
+  "icons": []
+}
