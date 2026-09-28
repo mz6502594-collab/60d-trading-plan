@@ -19,6 +19,21 @@
 .toast{position:fixed;left:50%;bottom:95px;transform:translate(-50%,20px);opacity:0;background:#1e2a3d;border:1px solid #40506a;border-radius:12px;padding:11px 15px;font-weight:800;z-index:80;transition:.2s;white-space:nowrap}.toast.show{transform:translate(-50%,0);opacity:1}
 @keyframes up{from{transform:translateY(100%)}to{transform:none}}
 @media(min-width:701px){body{padding-bottom:20px}.bottom{position:static;max-width:700px;margin:15px auto;border-radius:18px}.app{padding-bottom:10px}}
+
+/* Premium Trading Command Center */
+body{background:radial-gradient(circle at 50% -10%,#182746 0,#0a0e17 34%,#070a10 75%)}
+.header h1{font-size:32px;letter-spacing:-.04em}
+.card,.metric{box-shadow:0 14px 40px rgba(0,0,0,.25),inset 0 1px rgba(255,255,255,.025)}
+.metric{transition:transform .18s ease}.metric:active{transform:scale(.98)}
+.hero{position:relative;overflow:hidden;background:linear-gradient(135deg,#172742,#111a29 55%,#10151f);border-color:#3b5276}
+.hero-ring{width:112px;height:112px;border-radius:50%;margin:6px auto 12px;display:grid;place-items:center;background:conic-gradient(#28db89 var(--p,0%),#27364d 0);position:relative}
+.hero-ring:after{content:"";position:absolute;inset:9px;border-radius:50%;background:#111a27;border:1px solid #30415b}
+.hero-ring b{position:relative;z-index:1;font-size:23px}.eyebrow{font-size:10px;text-transform:uppercase;letter-spacing:.14em;color:#92a0b8;font-weight:900}
+.hero-title{text-align:center;font-size:16px;font-weight:900}.hero-value{text-align:center;font-size:30px;font-weight:950;margin-top:4px}.hero-sub{text-align:center;color:#a5b1c4;font-size:12px}
+.badges{display:flex;gap:7px;overflow:auto;padding:3px 1px}.badge{flex:0 0 auto;padding:8px 10px;border-radius:999px;background:#172131;border:1px solid #2c3c55;font-size:11px;font-weight:900}.badge.on{border-color:#2c986b;background:#10271e;color:#72e2ad}
+.action{box-shadow:0 8px 20px #0003;transition:transform .12s ease}.action:active,.mini:active{transform:scale(.96)}
+.chartbox{height:150px;display:flex;align-items:end;gap:5px;padding:15px 4px 4px}.bar{flex:1;min-height:5px;border-radius:7px 7px 2px 2px;background:linear-gradient(180deg,#53e8a4,#16885b)}.bar.empty{background:#273247}
+.successmark{font-size:42px;text-align:center;margin-bottom:5px}
 </style>
 </head>
 <body>
@@ -30,19 +45,26 @@
 </header>
 
 <main id="home" class="screen active">
-<div class="grid">
-<div class="metric"><div class="label">Overall Target</div><div class="big">Rs 2,000,000</div><div class="small">$7,017</div></div>
-<div class="metric"><div class="label">Daily Target</div><div class="big">Rs 33,330</div><div class="small">$117</div></div>
-<div class="metric"><div class="label">Trade</div><div class="big">Rs 3,332</div><div class="small">$11.50 × 10</div></div>
-<div class="metric"><div class="label">Completed</div><div class="big"><span id="completed">0</span>/60</div><div class="small"><span id="hits">0</span> hit · <span id="misses">0</span> missed</div></div>
+<div class="card hero">
+<div class="eyebrow">TRADING COMMAND CENTER</div>
+<div class="hero-ring" id="ring" style="--p:0%"><b id="ringPct">0%</b></div>
+<div class="hero-title">60-Day Challenge Progress</div>
+<div class="hero-value" id="heroAchieved">Rs 0</div>
+<div class="hero-sub" id="heroSub">$0 achieved · Rs 2,000,000 target</div>
 </div>
-<div class="card"><div class="label">Progress</div><div style="display:flex;justify-content:space-between;align-items:end"><div class="big" id="achieved">Rs 0</div><div style="text-align:right"><div class="label">Remaining</div><div class="small" id="remaining">Rs 2,000,000</div></div></div><div class="progressline"><div class="progressfill" id="fill"></div></div><div class="small" id="pct">0.0% · $0 / $7,017</div></div>
+<div class="badges" id="badges"></div>
+<div class="grid">
+<div class="metric"><div class="label">Today's Target</div><div class="big">Rs 33,330</div><div class="small">$117</div></div>
+<div class="metric"><div class="label">Trade Size</div><div class="big">Rs 3,332</div><div class="small">$11.50 × 10</div></div>
+<div class="metric"><div class="label">Completed</div><div class="big"><span id="completed">0</span>/60</div><div class="small"><span id="hits">0</span> hit · <span id="misses">0</span> missed</div></div>
+<div class="metric"><div class="label">Hit Rate</div><div class="big" id="rate">0%</div><div class="small">Completed sessions</div></div>
+</div>
 <div class="card today">
-<div class="today-top"><div><div class="label">Today's Session</div><div class="daynum" id="todayDay">Setup Day</div><div class="small" id="todayDate">29 Sep 2026</div></div><div class="status" id="todayStatus">📌 Setup</div></div>
+<div class="today-top"><div><div class="eyebrow">TODAY'S SESSION</div><div class="daynum" id="todayDay">Setup Day</div><div class="small" id="todayDate">29 Sep 2026</div></div><div class="status" id="todayStatus">📌 Setup</div></div>
 <div class="today-actions"><button class="action hit" id="hitBtn">✅ HIT</button><button class="action miss" id="missBtn">❌ MISS</button></div>
 </div>
-<div class="section-title">Quick Stats</div>
-<div class="grid"><div class="metric"><div class="label">Hit Rate</div><div class="big" id="rate">0%</div></div><div class="metric"><div class="label">Current Streak</div><div class="big" id="streak">0 🔥</div></div></div>
+<div class="card"><div style="display:flex;justify-content:space-between"><div><div class="label">Performance</div><div class="big" id="streak">0 🔥</div><div class="small">Current winning streak</div></div><div style="text-align:right"><div class="label">Remaining</div><div class="big" id="remaining">Rs 2,000,000</div></div></div><div class="progressline"><div class="progressfill" id="fill"></div></div><div class="small" id="pct">0.0% · $0 / $7,017</div></div>
+<div class="card"><div class="label">Last 14 Sessions</div><div class="chartbox" id="chart"></div></div>
 </main>
 
 <section id="calendar" class="screen">
@@ -79,7 +101,7 @@
 </nav>
 
 <div class="modalbg" id="modal"><div class="sheet">
-<h2 id="modalTitle">Confirm</h2><p id="modalText"></p>
+<div class="successmark" id="modalIcon">🎯</div><h2 id="modalTitle">Confirm</h2><p id="modalText"></p>
 <div class="sheet-actions"><button class="sheetbtn cancel" id="cancel">Cancel</button><button class="sheetbtn confirmhit" id="confirm">Confirm</button></div>
 </div></div>
 <div class="toast" id="toast"></div>
@@ -94,7 +116,7 @@ const $=x=>document.getElementById(x), dateFmt=x=>new Intl.DateTimeFormat('en-GB
 function save(){localStorage.setItem(KEY,JSON.stringify(state))}
 function esc(s){return String(s||'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
 function toast(t){let x=$('toast');x.textContent=t;x.classList.add('show');clearTimeout(window.tt);window.tt=setTimeout(()=>x.classList.remove('show'),2100)}
-function openConfirm(date,status){let d=DAYS.find(x=>x.date===date);if(!d)return;pending={date,status};$('modalTitle').textContent=status==='hit'?'Mark Target HIT?':'Mark Target MISSED?';$('modalText').textContent=`Day ${d.n} · ${dateFmt(date)} — ${status==='hit'?'confirm Rs 33,330 / $117 was completed.':'confirm today’s target was not completed.'}`;$('confirm').className='sheetbtn '+(status==='hit'?'confirmhit':'confirmmiss');$('confirm').textContent=status==='hit'?'Yes, HIT':'Yes, MISS';$('modal').classList.add('show')}
+function openConfirm(date,status){let d=DAYS.find(x=>x.date===date);if(!d)return;pending={date,status};$('modalIcon').textContent=status==='hit'?'🎯':'🛡️';$('modalTitle').textContent=status==='hit'?'Mark Target HIT?':'Mark Target MISSED?';$('modalText').textContent=`Day ${d.n} · ${dateFmt(date)} — ${status==='hit'?'confirm Rs 33,330 / $117 was completed.':'confirm today’s target was not completed.'}`;$('confirm').className='sheetbtn '+(status==='hit'?'confirmhit':'confirmmiss');$('confirm').textContent=status==='hit'?'Yes, HIT':'Yes, MISS';$('modal').classList.add('show')}
 $('cancel').onclick=()=>{$('modal').classList.remove('show');pending=null}
 $('confirm').onclick=()=>{if(!pending)return;state[pending.date].status=pending.status;save();$('modal').classList.remove('show');toast(pending.status==='hit'?'Target marked HIT ✓':'Day marked MISSED');pending=null;render()}
 function nav(screen){document.querySelectorAll('.screen').forEach(x=>x.classList.remove('active'));$(screen).classList.add('active');document.querySelectorAll('.nav').forEach(x=>x.classList.toggle('active',x.dataset.screen===screen));window.scrollTo({top:0,behavior:'smooth'})}
@@ -102,9 +124,12 @@ document.querySelectorAll('.nav').forEach(x=>x.onclick=()=>nav(x.dataset.screen)
 function renderHome(){
 let hits=DAYS.filter(x=>state[x.date].status==='hit').length,miss=DAYS.filter(x=>state[x.date].status==='miss').length,ach=hits*33330,p=ach/2000000*100;
 $('completed').textContent=hits;$('hits').textContent=hits;$('misses').textContent=miss;$('achieved').textContent='Rs '+ach.toLocaleString();$('remaining').textContent='Rs '+Math.max(0,2000000-ach).toLocaleString();$('fill').style.width=Math.min(100,p)+'%';$('pct').textContent=p.toFixed(1)+'% · $'+(hits*117).toLocaleString()+' / $7,017';$('rate').textContent=(hits+miss?Math.round(hits/(hits+miss)*100):0)+'%';
+$('ring').style.setProperty('--p',Math.min(100,p)+'%');$('ringPct').textContent=p.toFixed(1)+'%';$('heroAchieved').textContent='Rs '+ach.toLocaleString();$('heroSub').textContent='$'+(hits*117).toLocaleString()+' achieved · Rs 2,000,000 target';
 let streak=0;for(let i=DAYS.length-1;i>=0;i--){if(state[DAYS[i].date].status==='hit')streak++;else if(state[DAYS[i].date].status==='miss')break}$('streak').textContent=streak+' 🔥';
+let badges=[['🏁','Started',hits>=1],['🔥','5 Hits',hits>=5],['🏆','10 Hits',hits>=10],['💎','20 Hits',hits>=20],['👑','30 Hits',hits>=30]];$('badges').innerHTML=badges.map(x=>`<div class="badge ${x[2]?'on':''}">${x[0]} ${x[1]}</div>`).join('');
+$('chart').innerHTML=DAYS.slice(-14).map(x=>{let st=state[x.date].status;return `<div class="bar ${st==='pending'?'empty':''}" style="height:${st==='hit'?100:st==='miss'?32:12}%" title="Day ${x.n}"></div>`}).join('');
 let now=new Date().toISOString().slice(0,10),d=DAYS.find(x=>x.date===now);
-if(d){$('todayDay').textContent='Day '+d.n;$('todayDate').textContent=dateFmt(d.date);let s=state[d.date].status;$('todayStatus').textContent=s==='hit'?'🟢 Target Hit':s==='miss'?'🔴 Target Missed':'⏳ Pending';$('hitBtn').onclick=()=>openConfirm(d.date,'hit');$('missBtn').onclick=()=>openConfirm(d.date,'miss')}
+if(d){$('todayDay').textContent='Day '+d.n;$('todayDate').textContent=dateFmt(d.date);let st=state[d.date].status;$('todayStatus').textContent=st==='hit'?'🟢 Target Hit':st==='miss'?'🔴 Target Missed':'⏳ Pending';$('hitBtn').onclick=()=>openConfirm(d.date,'hit');$('missBtn').onclick=()=>openConfirm(d.date,'miss')}
 else{$('todayDay').textContent='Setup Day';$('todayDate').textContent='29 Sep 2026';$('todayStatus').textContent='📌 Starts tomorrow';$('hitBtn').onclick=()=>toast('Day 1 starts on 30 Sep 2026');$('missBtn').onclick=()=>toast('Day 1 starts on 30 Sep 2026')}}
 function renderCal(){
 let c=$('cal');c.innerHTML=['M','T','W','T','F','S','S'].map(x=>`<div class="dow">${x}</div>`).join('');
