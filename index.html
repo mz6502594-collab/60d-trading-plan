@@ -14,7 +14,7 @@
 .today{border-color:#314766}.today-top{display:flex;justify-content:space-between;gap:10px;align-items:center}.daynum{font-size:30px;font-weight:950}.status{font-weight:900}.today-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:15px}.action{min-height:58px;border:0;border-radius:15px;font-weight:950;font-size:16px;cursor:pointer}.hit{background:var(--green);color:#04130b}.miss{background:var(--red);color:#1a0508}.ghost{background:#202b3d;color:#fff;border:1px solid #34445d}
 .screen{display:none}.screen.active{display:block}.section-title{font-size:18px;font-weight:900;margin:18px 2px 9px}.calendar{display:grid;grid-template-columns:repeat(7,1fr);gap:5px}.dow{font-size:9px;text-align:center;color:#69768d;font-weight:900;padding:4px 0}.cell{aspect-ratio:1;border:1px solid #27344a;background:#111927;border-radius:10px;display:flex;align-items:center;justify-content:center;flex-direction:column;cursor:pointer;min-height:42px}.cell .n{font-size:11px;font-weight:900}.cell .dot{width:5px;height:5px;border-radius:50%;background:#66748c;margin-top:3px}.cell.hitcell{border-color:#207e59;background:#10251d}.cell.hitcell .dot{background:var(--green)}.cell.misscell{border-color:#853645;background:#29151b}.cell.misscell .dot{background:var(--red)}.cell.todaycell{outline:2px solid #6d9eff;outline-offset:1px}.blank{visibility:hidden}
 .list{display:flex;flex-direction:column;gap:8px}.row{display:flex;justify-content:space-between;align-items:center;gap:10px;background:#121a27;border:1px solid #243148;border-radius:14px;padding:12px}.row-left{min-width:0}.rowtitle{font-weight:900}.rowdate{font-size:12px;color:var(--muted)}.rowbtns{display:flex;gap:6px}.mini{border:0;border-radius:9px;padding:9px 10px;font-weight:900;font-size:11px}.notes{width:100%;background:#0c121d;color:#fff;border:1px solid #29374d;border-radius:11px;padding:10px;margin-top:8px}
-.bottom{position:fixed;left:0;right:0;bottom:0;background:rgba(12,17,27,.94);backdrop-filter:blur(18px);border-top:1px solid #263247;padding:8px max(10px,env(safe-area-inset-left)) calc(8px + env(safe-area-inset-bottom));display:grid;grid-template-columns:repeat(4,1fr);z-index:20}.nav{border:0;background:none;color:#758198;font-size:10px;font-weight:900;padding:7px 2px}.nav span{display:block;font-size:20px;margin-bottom:2px}.nav.active{color:#fff}
+.bottom{position:fixed;left:0;right:0;bottom:0;background:rgba(12,17,27,.94);backdrop-filter:blur(18px);border-top:1px solid #263247;padding:8px max(10px,env(safe-area-inset-left)) calc(8px + env(safe-area-inset-bottom));display:grid;grid-template-columns:repeat(5,1fr);z-index:20}.nav{border:0;background:none;color:#758198;font-size:10px;font-weight:900;padding:7px 2px}.nav span{display:block;font-size:20px;margin-bottom:2px}.nav.active{color:#fff}
 .modalbg{position:fixed;inset:0;background:#0009;backdrop-filter:blur(8px);display:none;align-items:flex-end;z-index:50}.modalbg.show{display:flex}.sheet{width:100%;background:#141c2a;border:1px solid #34425a;border-radius:24px 24px 0 0;padding:20px 16px calc(18px + env(safe-area-inset-bottom));animation:up .18s ease}.sheet h2{margin:0 0 7px;font-size:21px}.sheet p{color:var(--muted);margin:0 0 18px}.sheet-actions{display:grid;grid-template-columns:1fr 1fr;gap:9px}.sheetbtn{min-height:52px;border:0;border-radius:13px;font-weight:900;font-size:15px}.cancel{background:#263246;color:#fff}.confirmhit{background:var(--green)}.confirmmiss{background:var(--red)}
 .toast{position:fixed;left:50%;bottom:95px;transform:translate(-50%,20px);opacity:0;background:#1e2a3d;border:1px solid #40506a;border-radius:12px;padding:11px 15px;font-weight:800;z-index:80;transition:.2s;white-space:nowrap}.toast.show{transform:translate(-50%,0);opacity:1}
 @keyframes up{from{transform:translateY(100%)}to{transform:none}}
@@ -34,6 +34,20 @@ body{background:radial-gradient(circle at 50% -10%,#182746 0,#0a0e17 34%,#070a10
 .action{box-shadow:0 8px 20px #0003;transition:transform .12s ease}.action:active,.mini:active{transform:scale(.96)}
 .chartbox{height:150px;display:flex;align-items:end;gap:5px;padding:15px 4px 4px}.bar{flex:1;min-height:5px;border-radius:7px 7px 2px 2px;background:linear-gradient(180deg,#53e8a4,#16885b)}.bar.empty{background:#273247}
 .successmark{font-size:42px;text-align:center;margin-bottom:5px}
+
+/* Charts — Step 1 */
+.chart-screen{padding-bottom:110px}
+.market-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:12px}
+.market-title{font-size:25px;font-weight:950;letter-spacing:-.03em}
+.live-pill{padding:7px 10px;border-radius:999px;background:#10291f;border:1px solid #2d8b63;color:#71e2ad;font-size:10px;font-weight:950}
+.pair-row,.tf-row{display:flex;gap:8px;overflow:auto;padding:2px 1px 10px}
+.pair-btn,.tf-btn{flex:0 0 auto;border:1px solid #29364c;background:#121a27;color:#aab5c7;border-radius:12px;padding:10px 13px;font-weight:900;font-size:12px}
+.tf-btn{padding:8px 11px;border-radius:10px;font-size:11px}
+.pair-btn.active,.tf-btn.active{background:#263a4c;border-color:#587d9b;color:#fff}
+.tv-card{padding:0;overflow:hidden;border-radius:18px}
+.tv-wrap{height:62vh;min-height:470px;width:100%;background:#0b1018}
+.tv-note{padding:9px 12px;border-top:1px solid #253149;color:#7f8ca1;font-size:10px;line-height:1.4}
+.future-card{opacity:.8}
 </style>
 </head>
 <body>
@@ -82,6 +96,46 @@ body{background:radial-gradient(circle at 50% -10%,#182746 0,#0a0e17 34%,#070a10
 <div class="list" id="list"></div>
 </section>
 
+
+<main id="charts" class="screen chart-screen">
+  <div class="market-head">
+    <div>
+      <div class="eyebrow">MARKET WATCH</div>
+      <div class="market-title">📊 Forex Charts</div>
+    </div>
+    <div class="live-pill">● MARKET DATA</div>
+  </div>
+
+  <div class="card">
+    <div class="label">Currency Pair</div>
+    <div class="pair-row" id="pairRow">
+      <button class="pair-btn active" data-symbol="FX:EURUSD">EUR/USD</button>
+      <button class="pair-btn" data-symbol="FX:GBPUSD">GBP/USD</button>
+      <button class="pair-btn" data-symbol="FX:USDJPY">USD/JPY</button>
+      <button class="pair-btn" data-symbol="FX:AUDUSD">AUD/USD</button>
+      <button class="pair-btn" data-symbol="FX:USDCAD">USD/CAD</button>
+    </div>
+    <div class="label">Timeframe</div>
+    <div class="tf-row" id="tfRow">
+      <button class="tf-btn" data-interval="5">5m</button>
+      <button class="tf-btn active" data-interval="15">15m</button>
+      <button class="tf-btn" data-interval="60">1H</button>
+      <button class="tf-btn" data-interval="240">4H</button>
+      <button class="tf-btn" data-interval="D">1D</button>
+    </div>
+  </div>
+
+  <div class="card tv-card">
+    <div class="tv-wrap" id="tvChart"></div>
+    <div class="tv-note">Chart powered by TradingView. Data may be real-time or delayed depending on the selected market/data source.</div>
+  </div>
+
+  <div class="card future-card">
+    <div class="eyebrow">NEXT MODULES</div>
+    <div class="big">🤖 Signals · 📊 Results</div>
+    <div class="small">Reserved for later steps. No signal logic is active yet.</div>
+  </div>
+</main>
 <section id="settings" class="screen">
 <div class="section-title">⚙️ Settings & Backup</div>
 <div class="card">
@@ -95,6 +149,7 @@ body{background:radial-gradient(circle at 50% -10%,#182746 0,#0a0e17 34%,#070a10
 
 <nav class="bottom">
 <button class="nav active" data-screen="home"><span>⌂</span>Home</button>
+<button class="nav" data-screen="charts"><span>📊</span>Charts</button>
 <button class="nav" data-screen="calendar"><span>▦</span>Calendar</button>
 <button class="nav" data-screen="days"><span>☷</span>Days</button>
 <button class="nav" data-screen="settings"><span>⚙</span>Settings</button>
@@ -143,6 +198,45 @@ document.querySelectorAll('[data-filter]').forEach(b=>b.onclick=()=>{filter=b.da
 $('export').onclick=()=>{let blob=new Blob([JSON.stringify({challenge:'60D Trading Plan',setup:'2026-09-29',start:START,end:END,data:state},null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='60D-trading-backup.json';a.click();URL.revokeObjectURL(a.href);toast('Backup exported ✓')};
 $('reset').onclick=()=>{if(confirm('Reset all 60 days and delete all notes?')){DAYS.forEach(x=>state[x.date]={status:'pending',notes:''});save();render();toast('All progress reset')}}
 function render(){renderHome();renderCal();renderList()}render();
+
+let chartSymbol='FX:EURUSD', chartInterval='15';
+function loadTVChart(){
+  const host=document.getElementById('tvChart');
+  if(!host)return;
+  host.innerHTML='';
+  const container=document.createElement('div');
+  container.className='tradingview-widget-container';
+  container.style.cssText='height:100%;width:100%';
+  const widget=document.createElement('div');
+  widget.className='tradingview-widget-container__widget';
+  widget.style.cssText='height:100%;width:100%';
+  container.appendChild(widget); host.appendChild(container);
+  const script=document.createElement('script');
+  script.src='https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js';
+  script.type='text/javascript'; script.async=true;
+  script.text=JSON.stringify({
+    autosize:true,symbol:chartSymbol,interval:chartInterval,timezone:'exchange',
+    theme:'dark',style:'1',locale:'en',allow_symbol_change:true,
+    hide_top_toolbar:false,hide_side_toolbar:true,withdateranges:true,
+    save_image:false,calendar:false,details:false,hotlist:false,
+    hide_legend:false,hide_volume:false,support_host:'https://www.tradingview.com'
+  });
+  container.appendChild(script);
+}
+document.querySelectorAll('#pairRow .pair-btn').forEach(btn=>btn.onclick=()=>{
+  document.querySelectorAll('#pairRow .pair-btn').forEach(x=>x.classList.remove('active'));
+  btn.classList.add('active'); chartSymbol=btn.dataset.symbol; loadTVChart();
+});
+document.querySelectorAll('#tfRow .tf-btn').forEach(btn=>btn.onclick=()=>{
+  document.querySelectorAll('#tfRow .tf-btn').forEach(x=>x.classList.remove('active'));
+  btn.classList.add('active'); chartInterval=btn.dataset.interval; loadTVChart();
+});
+const originalNav=window.nav;
+window.nav=function(screen){
+  originalNav(screen);
+  if(screen==='charts') setTimeout(loadTVChart,80);
+};
+
 if('serviceWorker'in navigator)navigator.serviceWorker.register('./sw.js').catch(()=>{});
 </script>
 </body>

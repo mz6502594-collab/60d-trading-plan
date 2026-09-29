@@ -1,4 +1,4 @@
-const CACHE = "60d-command-center-v3";
+const CACHE = "60d-command-center-v4-charts";
 const ASSETS = ["./", "./index.html", "./manifest.webmanifest"];
 self.addEventListener("install", e => {
   e.waitUntil(caches.open(CACHE).then(c => c.addAll(ASSETS)));
